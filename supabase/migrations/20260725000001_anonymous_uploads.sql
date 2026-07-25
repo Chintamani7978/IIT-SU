@@ -25,6 +25,7 @@ create policy "anonymous upload to anonymous folder" on storage.objects
   );
 
 -- Allow moderators/admins to upload resources directly (bypass pending review status)
+drop policy if exists "moderators can upload directly" on public.resources;
 create policy "moderators can upload directly" on public.resources
   for insert to authenticated
   with check (

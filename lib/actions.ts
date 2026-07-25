@@ -108,10 +108,10 @@ export async function moderateResource(
 ): Promise<ActionResult> {
   if (!isSupabaseConfigured()) return NOT_CONFIGURED;
 
-  const user = await getCurrentUser();
-  if (!isModerator(user)) return { error: 'Moderator access required.' };
-
   const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'You must be signed in to moderate.' };
+
   const { data, error } = await supabase
     .from('resources')
     .update({
@@ -127,6 +127,36 @@ export async function moderateResource(
   if (!data) return { error: 'Resource not found or already moderated.' };
 
   revalidatePath(`/subject/${data.subject_id}`);
+  revalidatePath('/admin/moderation');
+  return {};
+}
+
+export async function deleteResource(resourceId: string): Promise<ActionResult> {
+  if (!isSupabaseConfigured()) return NOT_CONFIGURED;
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'You must be signed in to delete resources.' };
+
+  // Fetch the resource to get the file_path before deleting
+  const { data: resource, error: fetchError } = await supabase
+    .from('resources')
+    .select('file_path, subject_id')
+    .eq('id', resourceId)
+    .maybeSingle();
+  if (fetchError) return { error: fetchError.message };
+  if (!resource) return { error: 'Resource not found.' };
+
+  // Delete from storage if there is a PDF file
+  if (resource.file_path) {
+    await supabase.storage.from('resources').remove([resource.file_path]);
+  }
+
+  // Delete the database row
+  const { error } = await supabase.from('resources').delete().eq('id', resourceId);
+  if (error) return { error: error.message };
+
+  revalidatePath(`/subject/${resource.subject_id}`);
   revalidatePath('/admin/moderation');
   return {};
 }

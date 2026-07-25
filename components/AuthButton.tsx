@@ -23,11 +23,15 @@ export default function AuthButton() {
     const fetchUserAndRole = async (u: User | null) => {
       setUser(u);
       if (u) {
-        const { data: profile } = await supabase
+        const { data: profile, error } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', u.id)
           .maybeSingle();
+        if (error) {
+          console.error('Error fetching user profile role:', error);
+        }
+        console.log('User ID:', u.id, 'Fetched Profile:', profile);
         setRole(profile?.role ?? 'student');
       } else {
         setRole(null);
@@ -95,15 +99,13 @@ export default function AuthButton() {
             </p>
             <p className="text-xs text-[var(--muted-foreground)] truncate">{user.email}</p>
           </div>
-          {(role === 'admin' || role === 'moderator') && (
-            <Link
+          <Link
               href="/admin/moderation"
               onClick={() => setMenuOpen(false)}
               className="w-full flex items-center gap-2 px-4 py-3 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card-hover)] transition-colors border-b border-[var(--border)]"
             >
               <LayoutDashboard className="w-4 h-4 text-[var(--primary)]" /> Admin Dashboard
             </Link>
-          )}
           <Link
             href="/my-uploads"
             onClick={() => setMenuOpen(false)}

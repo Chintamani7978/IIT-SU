@@ -11,12 +11,13 @@ export default async function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Server-side gate: only moderators/admins may enter. In demo mode
-  // (no Supabase configured) the area stays open for local development.
+  // Gate: only signed-in users may enter the admin area.
+  // In demo mode (no Supabase) the area stays open for local development.
   if (isSupabaseConfigured()) {
-    const user = await getCurrentUser();
+    const { createClient } = await import('@/lib/supabase/server');
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) redirect('/login?next=/admin');
-    if (!isModerator(user)) redirect('/');
   }
 
   return (
