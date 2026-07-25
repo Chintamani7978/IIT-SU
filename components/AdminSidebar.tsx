@@ -34,9 +34,9 @@ export default function AdminSidebar() {
 
         <div className="relative mb-8">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]" />
-          <input 
-            type="text" 
-            placeholder="Search..." 
+          <input
+            type="text"
+            placeholder="Search..."
             className="w-full bg-[var(--card)] border border-[var(--border)] rounded-md pl-9 pr-8 py-2 text-sm text-[var(--foreground)] focus:outline-none focus:border-[var(--primary)]"
           />
           <kbd className="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[var(--muted-foreground)] bg-[var(--background)] px-1 rounded border border-[var(--border)]">
@@ -57,11 +57,10 @@ export default function AdminSidebar() {
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors font-medium text-sm ${
-                        isActive
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors font-medium text-sm ${isActive
                           ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-[0_0_15px_rgba(204,255,0,0.3)]'
                           : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card)]'
-                      }`}
+                        }`}
                     >
                       <Icon className="w-5 h-5 shrink-0" />
                       {item.name}
@@ -95,7 +94,7 @@ export default function AdminSidebar() {
           </div>
         </div>
       </div>
-      
+
       <div className="mt-auto p-6">
         <Link href="/" className="block">
           <img
