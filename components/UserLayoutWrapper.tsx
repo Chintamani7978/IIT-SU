@@ -31,12 +31,7 @@ export default function UserLayoutWrapper({
           {/* Top highlight for glass effect */}
           <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
           
-          {/* Left Glass Orb Logo */}
-          <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-white/20 to-white/0 border border-white/20 flex items-center justify-center shadow-[inset_0_2px_10px_rgba(255,255,255,0.2)] shrink-0">
-             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-zinc-700 to-zinc-900 shadow-inner flex items-center justify-center">
-               <span className="w-2 h-2 rounded-full bg-[var(--primary)] shadow-[0_0_10px_var(--primary)] animate-pulse"></span>
-             </div>
-          </div>
+
 
           {/* Center Navigation Links */}
           <div className="hidden md:flex items-center justify-center gap-8 px-6 text-sm font-medium">
