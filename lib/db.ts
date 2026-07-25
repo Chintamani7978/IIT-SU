@@ -319,3 +319,81 @@ export function findBranch(departments: Department[], branchId: string) {
   }
   return undefined;
 }
+
+export interface AdminStats {
+  totalNotes: number;
+  totalPyqs: number;
+  totalVideos: number;
+  totalLabs: number;
+  pendingCount: number;
+  approvedCount: number;
+  recentUploads: {
+    id: string;
+    title: string;
+    type: string;
+    authorName: string;
+    status: string;
+    createdAt: string;
+    subjectName?: string;
+  }[];
+}
+
+export async function getAdminStats(): Promise<AdminStats> {
+  const empty: AdminStats = {
+    totalNotes: 0, totalPyqs: 0, totalVideos: 0, totalLabs: 0,
+    pendingCount: 0, approvedCount: 0, recentUploads: [],
+  };
+  if (!isSupabaseConfigured()) {
+    // Use mock data counts
+    const all = mock.RESOURCES;
+    return {
+      totalNotes: all.filter((r) => r.type === 'note').length,
+      totalPyqs: all.filter((r) => r.type === 'pyq').length,
+      totalVideos: all.filter((r) => r.type === 'video').length,
+      totalLabs: all.filter((r) => r.type === 'lab').length,
+      pendingCount: all.filter((r) => r.status === 'pending').length,
+      approvedCount: all.filter((r) => r.status === 'approved').length,
+      recentUploads: [...all]
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        .slice(0, 10)
+        .map((r) => ({
+          id: r.id, title: r.title, type: r.type,
+          authorName: r.authorName, status: r.status, createdAt: r.createdAt,
+        })),
+    };
+  }
+
+  const { createClient: createCookieClient } = await import('./supabase/server');
+  const supabase = await createCookieClient();
+
+  const { data, error } = await supabase
+    .from('resources')
+    .select('id, title, type, author_name, status, created_at, subjects (name)')
+    .order('created_at', { ascending: false })
+    .limit(200);
+
+  if (error || !data) return empty;
+
+  const rows = data as {
+    id: string; title: string; type: string; author_name: string;
+    status: string; created_at: string; subjects: { name: string } | null;
+  }[];
+
+  return {
+    totalNotes:    rows.filter((r) => r.type === 'note').length,
+    totalPyqs:     rows.filter((r) => r.type === 'pyq').length,
+    totalVideos:   rows.filter((r) => r.type === 'video').length,
+    totalLabs:     rows.filter((r) => r.type === 'lab').length,
+    pendingCount:  rows.filter((r) => r.status === 'pending').length,
+    approvedCount: rows.filter((r) => r.status === 'approved').length,
+    recentUploads: rows.slice(0, 10).map((r) => ({
+      id: r.id,
+      title: r.title,
+      type: r.type,
+      authorName: r.author_name,
+      status: r.status,
+      createdAt: r.created_at,
+      subjectName: r.subjects?.name,
+    })),
+  };
+}
