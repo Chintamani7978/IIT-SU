@@ -43,24 +43,6 @@ export default function UploadModal({ subjectId, live = false }: { subjectId: st
     e.preventDefault();
     setError(null);
 
-    if (!live && !needsFile) {
-      // In demo mode without a file, bypass the file check and upload directly via Server Action
-    } else if (needsFile) {
-      if (!file && live) {
-        setError('Please choose a PDF file.');
-        return;
-      }
-      if (file && file.type !== 'application/pdf') {
-        setError('Only PDF files are accepted.');
-        return;
-      }
-      if (file && file.size > MAX_PDF_BYTES) {
-        setError('PDF must be 20 MB or smaller.');
-        return;
-      }
-    }
-
-    if (live && !user) return;
     if (needsFile) {
       if (!file) {
         setError('Please choose a PDF file.');
@@ -80,14 +62,17 @@ export default function UploadModal({ subjectId, live = false }: { subjectId: st
       let filePath: string | undefined;
 
       if (needsFile && file) {
-        filePath = `${user.id}/${crypto.randomUUID()}.pdf`;
-        const supabase = createClient();
-        const { error: uploadError } = await supabase.storage
-          .from('resources')
-          .upload(filePath, file, { contentType: 'application/pdf' });
-        if (uploadError) {
-          setError(`Upload failed: ${uploadError.message}`);
-          return;
+        const folder = user ? user.id : 'anonymous';
+        filePath = `${folder}/${crypto.randomUUID()}.pdf`;
+        if (live) {
+          const supabase = createClient();
+          const { error: uploadError } = await supabase.storage
+            .from('resources')
+            .upload(filePath, file, { contentType: 'application/pdf' });
+          if (uploadError) {
+            setError(`Upload failed: ${uploadError.message}`);
+            return;
+          }
         }
       }
 
@@ -157,16 +142,6 @@ export default function UploadModal({ subjectId, live = false }: { subjectId: st
                 >
                   Done
                 </button>
-              </div>
-            ) : live && !user ? (
-              <div className="text-center py-10 space-y-4">
-                <p className="text-[var(--muted-foreground)]">Sign in to upload resources.</p>
-                <Link
-                  href={`/login?next=/subject/${subjectId}`}
-                  className="inline-block px-6 py-2 bg-[var(--primary)] hover:bg-[var(--neon-hover)] text-[var(--primary-foreground)] font-bold rounded-md transition-colors"
-                >
-                  Sign in
-                </Link>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">

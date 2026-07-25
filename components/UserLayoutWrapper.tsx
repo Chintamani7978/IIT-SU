@@ -44,7 +44,6 @@ export default function UserLayoutWrapper({
             <Link href="/#departments" className={`transition-all ${isDepartments ? 'text-[var(--primary)] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]' : 'text-zinc-300 hover:text-white'}`}>Departments</Link>
             <Link href="#" className="text-zinc-300 hover:text-white transition-all">Contact</Link>
             <Link href="#" className="text-zinc-300 hover:text-white transition-all">About</Link>
-            <Link href="/admin/moderation" className="text-zinc-300 hover:text-[var(--primary)] transition-all flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)] animate-pulse"></span>Admin</Link>
           </div>
 
           {/* Profile / Auth */}

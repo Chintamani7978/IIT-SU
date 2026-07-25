@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { LogOut, User as UserIcon, FileText } from 'lucide-react';
+import { LogOut, User as UserIcon, FileText, LayoutDashboard } from 'lucide-react';
 import type { User } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
 
@@ -11,6 +11,7 @@ const configured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
 
 export default function AuthButton() {
   const [user, setUser] = useState<User | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -18,12 +19,29 @@ export default function AuthButton() {
   useEffect(() => {
     if (!configured) return;
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    
+    const fetchUserAndRole = async (u: User | null) => {
+      setUser(u);
+      if (u) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', u.id)
+          .maybeSingle();
+        setRole(profile?.role ?? 'student');
+      } else {
+        setRole(null);
+      }
+    };
+
+    supabase.auth.getUser().then(({ data }) => fetchUserAndRole(data.user));
+
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      fetchUserAndRole(session?.user ?? null);
     });
+
     return () => subscription.unsubscribe();
   }, []);
 
@@ -77,6 +95,15 @@ export default function AuthButton() {
             </p>
             <p className="text-xs text-[var(--muted-foreground)] truncate">{user.email}</p>
           </div>
+          {(role === 'admin' || role === 'moderator') && (
+            <Link
+              href="/admin/moderation"
+              onClick={() => setMenuOpen(false)}
+              className="w-full flex items-center gap-2 px-4 py-3 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card-hover)] transition-colors border-b border-[var(--border)]"
+            >
+              <LayoutDashboard className="w-4 h-4 text-[var(--primary)]" /> Admin Dashboard
+            </Link>
+          )}
           <Link
             href="/my-uploads"
             onClick={() => setMenuOpen(false)}

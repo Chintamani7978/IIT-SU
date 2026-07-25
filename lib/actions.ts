@@ -57,7 +57,6 @@ export async function submitResource(input: SubmitResourceInput): Promise<Action
   }
 
   const user = await getCurrentUser();
-  if (!user) return { error: 'You must be signed in to upload.' };
 
   const title = input.title?.trim();
   if (!title || title.length < 3 || title.length > 200) {
@@ -70,21 +69,30 @@ export async function submitResource(input: SubmitResourceInput): Promise<Action
     if (!input.videoUrl || !/^https:\/\//.test(input.videoUrl)) {
       return { error: 'Video link must be an https:// URL.' };
     }
-  } else if (!input.filePath || !input.filePath.startsWith(`${user.id}/`)) {
-    return { error: 'File upload missing or invalid.' };
+  } else {
+    const prefix = user ? `${user.id}/` : 'anonymous/';
+    if (!input.filePath || !input.filePath.startsWith(prefix)) {
+      return { error: 'File upload missing or invalid.' };
+    }
   }
+
+  const isAdmin = isModerator(user);
+  const status = isAdmin ? 'approved' : 'pending';
+  const isVerified = isAdmin;
 
   const supabase = await createClient();
   const { error } = await supabase.from('resources').insert({
     subject_id: input.subjectId,
     type: input.type,
     title,
-    uploader_id: user.id,
-    author_name: input.authorName?.trim() || user.name || 'Anonymous',
+    uploader_id: user?.id || null,
+    author_name: input.authorName?.trim() || user?.name || 'Anonymous',
     batch: input.batch?.trim() || null,
     unit: input.unit?.trim() || null,
     file_path: input.type === 'video' ? null : input.filePath,
     video_url: input.type === 'video' ? input.videoUrl : null,
+    status,
+    is_verified: isVerified,
     exam_type: input.type === 'pyq' ? input.examType ?? 'end-sem' : null,
     exam_year: input.type === 'pyq' ? input.examYear ?? null : null,
   });
