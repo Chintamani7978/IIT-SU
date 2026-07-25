@@ -374,7 +374,7 @@ export async function getAdminStats(): Promise<AdminStats> {
 
   if (error || !data) return empty;
 
-  const rows = data as {
+  const rows = data as unknown as {
     id: string; title: string; type: string; author_name: string;
     status: string; created_at: string; subjects: { name: string } | null;
   }[];
