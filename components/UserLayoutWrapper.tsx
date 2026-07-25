@@ -30,11 +30,8 @@ export default function UserLayoutWrapper({
           
           {/* Top highlight for glass effect */}
           <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-          
-
-
-          {/* Center Navigation Links */}
-          <div className="hidden md:flex items-center justify-center gap-8 px-6 text-sm font-medium">
+                    {/* Center Navigation Links */}
+          <div className="hidden md:flex items-center justify-center gap-8 px-6 text-sm font-medium flex-1">
             <Link href="/" className={`transition-all ${pathname === '/' ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'text-zinc-300 hover:text-white'}`}>Home</Link>
             <Link href="/#departments" className={`transition-all ${isDepartments ? 'text-[var(--primary)] drop-shadow-[0_0_8px_rgba(204,255,0,0.6)]' : 'text-zinc-300 hover:text-white'}`}>Departments</Link>
             <Link href="#" className="text-zinc-300 hover:text-white transition-all">Contact</Link>
