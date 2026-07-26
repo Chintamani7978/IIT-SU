@@ -1,3 +1,4 @@
+// Next.js 16 middleware proxy config
 import { updateSession } from "@/lib/supabase/proxy";
 import { type NextRequest, NextResponse } from "next/server";
 
