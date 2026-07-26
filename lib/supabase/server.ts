@@ -1,3 +1,4 @@
+// Server-side Supabase client initialization (Next.js 16 SSR)
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
