@@ -1,3 +1,4 @@
+// Browser-side Supabase client initialization
 import { createBrowserClient } from '@supabase/ssr';
 
 export const createClient = () =>
