@@ -34,3 +34,8 @@ Unofficial, student-run platform for Sambalpur University Institute of Informati
 - \components/\ - Reusable UI components.
 - \lib/\ - Shared utilities, types, database clients, and authentication helpers.
 - \supabase/\ - Database migrations and schema setups.
+## Troubleshooting Deployment
+If you are deploying to Vercel and notice that authentication or features aren't working:
+1. Ensure your environment variables are configured in the Vercel dashboard.
+2. Remember that Next.js client-side variables (\NEXT_PUBLIC_...\) are inlined at build time. If you update your env variables in Vercel, you must trigger a redeployment/rebuild for them to take effect.
+3. Add your Vercel domains to the redirect URLs in your Supabase Auth configuration.
