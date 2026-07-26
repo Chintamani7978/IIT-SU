@@ -29,3 +29,8 @@ Unofficial, student-run platform for Sambalpur University Institute of Informati
 1. Create a free project on [Supabase](https://supabase.com).
 2. Set up the schema and seed the catalog using the SQL migrations in the \supabase/migrations/\ directory.
 3. Configure authentication (such as Google OAuth) via the Supabase dashboard.
+## Project Structure
+- \pp/\ - Next.js App Router pages and layouts.
+- \components/\ - Reusable UI components.
+- \lib/\ - Shared utilities, types, database clients, and authentication helpers.
+- \supabase/\ - Database migrations and schema setups.
