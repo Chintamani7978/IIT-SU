@@ -129,3 +129,6 @@ The team's earlier attempt at the same idea. Audited 2026-07-24:
 2. Create Supabase project + write schema migration
 3. Seed departments/branches/subjects from `mockDb.ts`
 4. Swap one page (departments list) from mock to real DB — proves the pattern, rest follows
+
+## Update 2026-07-26: Session Refresh Fix
+- Fixed session refresh issue in proxy helper by replacing the non-standard `getClaims()` call with `getUser()`.
