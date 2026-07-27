@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { usePathname } from 'next/navigation';
 import AuthButton from './AuthButton';
@@ -17,10 +18,13 @@ export default function UserLayoutWrapper({
       
       {/* Top Left Logo */}
       <Link href="/" className="absolute top-6 left-6 md:left-10 z-50 pointer-events-auto">
-        <img
+        <Image
           src="/logo.svg"
           alt="SUIIT E-Learning Logo"
+          width={140}
+          height={56}
           className="h-14 w-auto"
+          priority
         />
       </Link>
 

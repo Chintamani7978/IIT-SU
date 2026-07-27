@@ -3,7 +3,7 @@
 import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { ArrowLeft, LogIn, Mail } from 'lucide-react';
+import { ArrowLeft, Mail } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
 function LoginCard() {

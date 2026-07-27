@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, ShieldCheck } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,10 +14,13 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
             <Link href="/" className="block">
-              <img
+              <Image
                 src="/logo.svg"
                 alt="SUIIT E-Learning Logo"
+                width={120}
+                height={48}
                 className="h-12 w-auto"
+                priority
               />
             </Link>
           </div>
