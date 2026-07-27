@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { DEPARTMENTS } from '@/lib/mockDb';
 import { findBranch, getDepartments } from '@/lib/db';
 

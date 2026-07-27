@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getDepartments } from '@/lib/db';
-import { GraduationCap, ChevronRight, Layers } from 'lucide-react';
+import { GraduationCap, ChevronRight } from 'lucide-react';
 
 export default async function DepartmentsMenu() {
   const departments = await getDepartments();

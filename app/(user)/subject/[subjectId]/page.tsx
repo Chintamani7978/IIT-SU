@@ -3,7 +3,7 @@ import { getSubjectById, getResourcesBySubjectId } from '@/lib/db';
 import { isSupabaseConfigured } from '@/lib/supabase/server';
 import SubjectTabs from '@/components/SubjectTabs';
 import Link from 'next/link';
-import { ArrowLeft, UploadCloud } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import UploadModal from '@/components/UploadModal';
 
 // Re-render periodically so newly approved resources appear and the signed
