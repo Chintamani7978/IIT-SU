@@ -5,6 +5,32 @@ import { ChevronDown, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+const departments = [
+  {
+    id: 'cse',
+    name: 'Department of Computer Science & Engineering',
+    branches: [
+      { id: 'cse-core', name: 'Computer Science & Engineering (Core)' },
+      { id: 'cse-aiml', name: 'Artificial Intelligence & Machine Learning (AI/ML)' },
+      { id: 'cse-ics', name: 'Information & Cyber Security (ICS)' },
+    ]
+  },
+  {
+    id: 'ece',
+    name: 'Department of Electronics & Communication Engineering',
+    branches: [
+      { id: 'ece', name: 'Electronics & Communication Engineering (ECE)' },
+    ]
+  },
+  {
+    id: 'eee',
+    name: 'Department of Electrical & Electronics Engineering',
+    branches: [
+      { id: 'eee', name: 'Electrical & Electronics Engineering (EEE)' },
+    ]
+  }
+];
+
 export default function LandingAccordion() {
   const pathname = usePathname();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -23,31 +49,6 @@ export default function LandingAccordion() {
     }
   }, [pathname]);
 
-  const departments = [
-    {
-      id: 'cse',
-      name: 'Department of Computer Science & Engineering',
-      branches: [
-        { id: 'cse-core', name: 'Computer Science & Engineering (Core)' },
-        { id: 'cse-aiml', name: 'Artificial Intelligence & Machine Learning (AI/ML)' },
-        { id: 'cse-ics', name: 'Information & Cyber Security (ICS)' },
-      ]
-    },
-    {
-      id: 'ece',
-      name: 'Department of Electronics & Communication Engineering',
-      branches: [
-        { id: 'ece', name: 'Electronics & Communication Engineering (ECE)' },
-      ]
-    },
-    {
-      id: 'eee',
-      name: 'Department of Electrical & Electronics Engineering',
-      branches: [
-        { id: 'eee', name: 'Electrical & Electronics Engineering (EEE)' },
-      ]
-    }
-  ];
 
   if (!isExpanded) {
     return (
