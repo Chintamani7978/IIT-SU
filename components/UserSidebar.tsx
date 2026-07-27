@@ -14,8 +14,10 @@ export default function UserSidebar() {
     for (const dept of DEPARTMENTS) {
       for (const branch of dept.branches) {
         if (pathname.includes(branch.id) || pathname.includes(`/subject/`)) {
-          setOpenDept(dept.id);
-          return;
+          const timer = setTimeout(() => {
+            setOpenDept(dept.id);
+          }, 0);
+          return () => clearTimeout(timer);
         }
       }
     }
@@ -63,7 +65,7 @@ export default function UserSidebar() {
                 </button>
                 
                 {isOpen && (
-                  <div className="bg-[var(--card)] pb-2 px-2 border-b border-[var(--border)]">
+                   <div className="bg-[var(--card)] pb-2 px-2 border-b border-[var(--border)]">
                     {dept.branches.map((branch) => (
                       <div key={branch.id} className="mb-2">
                         <div className="px-4 py-2 text-xs font-semibold text-[var(--muted-foreground)]">
@@ -78,7 +80,7 @@ export default function UserSidebar() {
                                 key={year}
                                 href={href}
                                 className={`flex items-center justify-center py-2 rounded-lg text-xs font-bold transition-all ${
-                                  pathname === href 
+                                  isActive 
                                     ? 'bg-[var(--primary)] text-[var(--primary-foreground)]'
                                     : 'bg-[var(--background)] text-[var(--muted-foreground)] hover:bg-[var(--card-hover)] hover:text-[var(--foreground)] border border-[var(--border)]'
                                 }`}
