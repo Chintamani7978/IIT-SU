@@ -2,10 +2,7 @@
 
 import { useEffect, useState, useTransition } from 'react';
 import { UploadCloud, X, CheckCircle2 } from 'lucide-react';
-import Link from 'next/link';
 import type { User } from '@supabase/supabase-js';
-import { addResource } from '@/lib/mockDb';
-import { Resource } from '@/lib/types';
 import { createClient } from '@/lib/supabase/client';
 import { submitResource } from '@/lib/actions';
 

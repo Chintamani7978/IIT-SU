@@ -1,6 +1,6 @@
 'use client';
 
-import { UserPlus, ShoppingCart, DollarSign, MessageSquare, PlusCircle, Bell, Globe } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 import { getPendingResources } from '@/lib/mockDb';
 
 export default function RightSidebar() {
