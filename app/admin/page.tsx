@@ -1,4 +1,4 @@
-import { ArrowRight, FileText, FileQuestion, PlaySquare, FlaskConical, CheckCircle2, Clock, BookOpen } from 'lucide-react';
+import { ArrowRight, FileText, FileQuestion, PlaySquare, FlaskConical, CheckCircle2, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { getAdminStats } from '@/lib/db';
 

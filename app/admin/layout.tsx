@@ -4,7 +4,7 @@ import { Moon, RefreshCw, Bell, Globe } from "lucide-react";
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { isSupabaseConfigured } from '@/lib/supabase/server';
-import { getCurrentUser, isModerator } from '@/lib/auth';
+
 
 export default async function AdminLayout({
   children,
