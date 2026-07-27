@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { createClient, isSupabaseConfigured } from './supabase/server';
 import { getCurrentUser, isModerator } from './auth';
+import { Resource } from './types';
 
 export interface ActionResult {
   error?: string;
@@ -49,7 +50,7 @@ export async function submitResource(input: SubmitResourceInput): Promise<Action
       ...(input.type === 'pyq' ? { examType: input.examType, year: input.examYear } : {}),
     };
     
-    addResource(newResource as any);
+    addResource(newResource as Resource);
     revalidatePath(`/subject/${input.subjectId}`);
     revalidatePath('/admin/moderation');
     revalidatePath('/admin');
