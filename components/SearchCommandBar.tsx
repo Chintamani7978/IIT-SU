@@ -38,12 +38,16 @@ export default function SearchCommandBar() {
   useEffect(() => {
     const trimmed = query.trim();
     if (trimmed.length < 2) {
-      setSubjects([]);
-      setResources([]);
-      setLoading(false);
-      return;
+      const timer = setTimeout(() => {
+        setSubjects([]);
+        setResources([]);
+        setLoading(false);
+      }, 0);
+      return () => clearTimeout(timer);
     }
-    setLoading(true);
+    const startLoadingTimer = setTimeout(() => {
+      setLoading(true);
+    }, 0);
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       fetch(`/api/search?q=${encodeURIComponent(trimmed)}`)
@@ -54,7 +58,10 @@ export default function SearchCommandBar() {
         })
         .finally(() => setLoading(false));
     }, 250);
-    return () => clearTimeout(debounceRef.current);
+    return () => {
+      clearTimeout(startLoadingTimer);
+      clearTimeout(debounceRef.current);
+    };
   }, [query]);
 
   const goToSubject = (subjectId: string) => {
