@@ -41,9 +41,11 @@ export default function LandingAccordion() {
     for (const dept of departments) {
       for (const branch of dept.branches) {
         if (pathname.includes(branch.id)) {
-          setIsExpanded(true);
-          setOpenDept(dept.id);
-          return;
+          const timer = setTimeout(() => {
+            setIsExpanded(true);
+            setOpenDept(dept.id);
+          }, 0);
+          return () => clearTimeout(timer);
         }
       }
     }
