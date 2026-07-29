@@ -370,7 +370,7 @@ export async function getAdminStats(): Promise<AdminStats> {
 
   const { data, error } = await supabase
     .from('resources')
-    .select('id, title, type, author_name, status, created_at, pdf_url, video_url, subjects (name)')
+    .select('id, title, type, author_name, status, created_at, file_path, video_url, subjects (name)')
     .order('created_at', { ascending: false })
     .limit(200);
 
@@ -378,9 +378,21 @@ export async function getAdminStats(): Promise<AdminStats> {
 
   const rows = data as unknown as {
     id: string; title: string; type: string; author_name: string;
-    status: string; created_at: string; pdf_url: string | null; video_url: string | null;
+    status: string; created_at: string; file_path: string | null; video_url: string | null;
     subjects: { name: string } | null;
   }[];
+
+  // Generate signed URLs for PDF file paths
+  const filePaths = rows.map((r) => r.file_path).filter((p): p is string => p !== null);
+  const signedByPath = new Map<string, string>();
+  if (filePaths.length > 0) {
+    const { data: signed } = await supabase.storage
+      .from('resources')
+      .createSignedUrls(filePaths, 3600);
+    for (const s of signed ?? []) {
+      if (s.signedUrl && s.path) signedByPath.set(s.path, s.signedUrl);
+    }
+  }
 
   return {
     totalNotes:    rows.filter((r) => r.type === 'note').length,
@@ -397,7 +409,7 @@ export async function getAdminStats(): Promise<AdminStats> {
       status: r.status,
       createdAt: r.created_at,
       subjectName: r.subjects?.name,
-      pdfUrl: r.pdf_url ?? undefined,
+      pdfUrl: r.file_path ? signedByPath.get(r.file_path) ?? undefined : undefined,
       videoUrl: r.video_url ?? undefined,
     })),
   };
