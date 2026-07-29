@@ -1,6 +1,8 @@
 import { ArrowRight, FileText, FileQuestion, PlaySquare, FlaskConical, CheckCircle2, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { getAdminStats } from '@/lib/db';
+import PdfPreviewModal from '@/components/PdfPreviewModal';
+import VideoPreviewModal from '@/components/VideoPreviewModal';
 
 export const dynamic = 'force-dynamic';
 
@@ -85,11 +87,13 @@ export default async function AdminOverviewPage() {
                   <th className="px-3 py-3 font-medium">By</th>
                   <th className="px-3 py-3 font-medium">Date</th>
                   <th className="px-3 py-3 font-medium">Status</th>
+                  <th className="px-3 py-3 font-medium">Preview</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[var(--border)]">
                 {stats.recentUploads.map((r) => {
                   const ts = typeStyles[r.type] ?? typeStyles.note;
+                  const previewUrl = r.type === 'video' ? r.videoUrl : r.pdfUrl;
                   return (
                     <tr key={r.id} className="hover:bg-[var(--card-hover)] transition-colors">
                       <td className="px-3 py-3 font-medium text-[var(--foreground)] max-w-[200px] truncate">{r.title}</td>
@@ -113,6 +117,17 @@ export default async function AdminOverviewPage() {
                         }`}>
                           {r.status}
                         </span>
+                      </td>
+                      <td className="px-3 py-3">
+                        {previewUrl && previewUrl !== '#' ? (
+                          r.type === 'video' ? (
+                            <VideoPreviewModal url={previewUrl} label="Watch" />
+                          ) : (
+                            <PdfPreviewModal url={previewUrl} label="View" />
+                          )
+                        ) : (
+                          <span className="text-xs text-[var(--muted-foreground)]">—</span>
+                        )}
                       </td>
                     </tr>
                   );

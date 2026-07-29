@@ -378,7 +378,8 @@ export async function getAdminStats(): Promise<AdminStats> {
 
   const rows = data as unknown as {
     id: string; title: string; type: string; author_name: string;
-    status: string; created_at: string; subjects: { name: string } | null;
+    status: string; created_at: string; pdf_url: string | null; video_url: string | null;
+    subjects: { name: string } | null;
   }[];
 
   return {
@@ -396,6 +397,8 @@ export async function getAdminStats(): Promise<AdminStats> {
       status: r.status,
       createdAt: r.created_at,
       subjectName: r.subjects?.name,
+      pdfUrl: r.pdf_url ?? undefined,
+      videoUrl: r.video_url ?? undefined,
     })),
   };
 }
