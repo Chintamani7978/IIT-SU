@@ -1,0 +1,18 @@
+
+> e-learning-platform@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.13:3000
+- Environments: .env.local
+✓ Ready in 897ms
+
+ GET / 200 in 2.4s (next.js: 109ms, proxy.ts: 1833ms, application-code: 489ms)
+[browser] Image with src "http://localhost:3000/logo.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. (file://E:/IIT SU/.next/dev/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477:13)
+[browser] GSAP target [data-hero-glow] not found. https://gsap.com (file://E:/IIT SU/.next/dev/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477:13)
+[browser] GSAP target  not found. https://gsap.com (file://E:/IIT SU/.next/dev/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477:13)
+[browser] GSAP target  not found. https://gsap.com (file://E:/IIT SU/.next/dev/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477:13)
+[browser] GSAP target [data-hero-ping] not found. https://gsap.com (file://E:/IIT SU/.next/dev/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477:13)
+[browser] GSAP target  not found. https://gsap.com (file://E:/IIT SU/.next/dev/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477:13)
+[browser] GSAP target  not found. https://gsap.com (file://E:/IIT SU/.next/dev/static/chunks/node_modules_next_dist_1ybzpk2._.js:2477:13)

@@ -6,6 +6,7 @@ import { FileText, FileQuestion, PlaySquare, FlaskConical, ThumbsUp, ShieldCheck
 import { upvoteResource } from '@/lib/mockDb';
 import { toggleVote } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
+import LectureLinkInput from './LectureLinkInput';
 
 export default function SubjectTabs({
   resources,
@@ -115,6 +116,11 @@ export default function SubjectTabs({
         <p className="text-sm text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-md p-3">
           {voteError}
         </p>
+      )}
+
+      {/* Lecture Link Input (video tab only) */}
+      {activeTab === 'video' && subjectId && (
+        <LectureLinkInput subjectId={subjectId} />
       )}
 
       {/* Resource Grid */}
