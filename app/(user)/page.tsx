@@ -71,10 +71,10 @@ export default function UserLandingPage() {
         <h1 className="text-4xl md:text-5xl font-black text-[var(--foreground)] tracking-tighter mb-3 leading-tight">
           <span data-hero-word className="inline-block mr-2">Master</span>
           <span data-hero-word className="inline-block">Your</span> <br/>
-          <span data-hero-word className="inline-block text-[var(--primary)] mr-2">
+          <span data-hero-word className="inline-block text-[var(--foreground)] mr-2">
             Engineering
           </span>
-          <span data-hero-word className="inline-block text-[var(--primary)]">
+          <span data-hero-word className="inline-block text-[var(--foreground)]">
             Studies
           </span>
         </h1>
