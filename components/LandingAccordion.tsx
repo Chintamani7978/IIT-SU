@@ -57,12 +57,13 @@ export default function LandingAccordion() {
       <div id="departments" className="flex justify-center mt-0 mb-8">
         <button
           onClick={() => setIsExpanded(true)}
-          className="group relative px-6 py-3.5 bg-[var(--primary)] text-black rounded-xl font-bold text-sm tracking-widest uppercase shadow-[0_0_30px_rgba(204,255,0,0.15)] hover:shadow-[0_0_50px_rgba(204,255,0,0.3)] hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+          className="group relative px-8 py-4 rounded-2xl font-bold text-sm tracking-widest uppercase overflow-hidden transition-all duration-500 ease-out bg-gradient-to-r from-white/10 via-white/5 to-white/10 border border-white/20 hover:border-[var(--primary)]/60 hover:shadow-[0_0_40px_rgba(204,255,0,0.2),0_0_80px_rgba(204,255,0,0.1)] hover:-translate-y-1 backdrop-blur-sm"
         >
-          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-          <span className="relative flex items-center gap-2">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--primary)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary)]/0 via-[var(--primary)]/20 to-[var(--primary)]/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></div>
+          <span className="relative flex items-center gap-3 text-zinc-200 group-hover:text-[var(--primary)] transition-colors duration-300">
             SELECT YOUR BRANCH
-            <ChevronDown className="w-5 h-5 group-hover:animate-bounce" />
+            <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300 ease-out" />
           </span>
         </button>
       </div>
