@@ -2,6 +2,7 @@ import { ShieldCheck, ExternalLink, Clock, CheckCircle2, FileText, Video, FlaskC
 import { getPendingResources } from '@/lib/db';
 import ModerationActions from '@/components/ModerationActions';
 import PdfPreviewModal from '@/components/PdfPreviewModal';
+import VideoPreviewModal from '@/components/VideoPreviewModal';
 
 export const dynamic = 'force-dynamic';
 
@@ -113,15 +114,7 @@ export default async function ModerationPage() {
                     {previewUrl && previewUrl !== '#' && (
                       <div className="pt-0.5">
                         {resource.type === 'video' ? (
-                          <a
-                            href={previewUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs text-[var(--primary)] hover:text-[var(--neon-hover)] font-medium transition-colors"
-                          >
-                            <ExternalLink className="w-3.5 h-3.5" />
-                            Open Video
-                          </a>
+                          <VideoPreviewModal url={previewUrl} label="Preview Video" />
                         ) : (
                           <PdfPreviewModal url={previewUrl} label="Preview PDF" />
                         )}
