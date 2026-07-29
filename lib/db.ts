@@ -335,6 +335,8 @@ export interface AdminStats {
     status: string;
     createdAt: string;
     subjectName?: string;
+    pdfUrl?: string;
+    videoUrl?: string;
   }[];
 }
 
@@ -368,7 +370,7 @@ export async function getAdminStats(): Promise<AdminStats> {
 
   const { data, error } = await supabase
     .from('resources')
-    .select('id, title, type, author_name, status, created_at, subjects (name)')
+    .select('id, title, type, author_name, status, created_at, pdf_url, video_url, subjects (name)')
     .order('created_at', { ascending: false })
     .limit(200);
 
