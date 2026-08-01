@@ -161,7 +161,7 @@ export const SUBJECTS: Subject[] = [
   { id: 'eee102', name: 'Control Systems', code: 'EEE102', branchId: 'eee', year: 3, semester: 5, credits: 3, type: 'theory' },
 ];
 
-export const SUBJECTS_FOR_BRANCH = (branchId: string) => {
+export const SUBJECTS_FOR_BRANCH = (branchId: string): Subject[] => {
   return SUBJECTS.filter(s => s.branchId === branchId);
 };
 
@@ -211,38 +211,38 @@ export const RESOURCES: Resource[] = [
   }
 ];
 
-export const getSubjectsByBranchAndYear = (branchId: string, year: number) => {
+export const getSubjectsByBranchAndYear = (branchId: string, year: number): Subject[] => {
   return SUBJECTS.filter(s => s.branchId === branchId && s.year === year);
 };
 
-export const getSubjectsByBranchYearSemester = (branchId: string, year: number, semester: number) => {
+export const getSubjectsByBranchYearSemester = (branchId: string, year: number, semester: number): Subject[] => {
   return SUBJECTS.filter(s => s.branchId === branchId && s.year === year && s.semester === semester);
 };
 
-export const getSubjectById = (subjectId: string) => {
+export const getSubjectById = (subjectId: string): Subject | undefined => {
   return SUBJECTS.find(s => s.id === subjectId);
 };
 
-export const getResourcesBySubjectId = (subjectId: string) => {
+export const getResourcesBySubjectId = (subjectId: string): Resource[] => {
   return RESOURCES.filter(r => r.subjectId === subjectId && r.status === 'approved');
 };
 
-export const getPendingResources = () => {
+export const getPendingResources = (): Resource[] => {
   return RESOURCES.filter(r => r.status === 'pending');
 };
 
-export const addResource = (resource: Resource) => {
+export const addResource = (resource: Resource): void => {
   RESOURCES.push(resource);
 };
 
-export const upvoteResource = (resourceId: string) => {
+export const upvoteResource = (resourceId: string): void => {
   const resource = RESOURCES.find(r => r.id === resourceId);
   if (resource) {
     resource.upvotes += 1;
   }
 };
 
-export const approveResource = (resourceId: string) => {
+export const approveResource = (resourceId: string): void => {
   const resource = RESOURCES.find(r => r.id === resourceId);
   if (resource) {
     resource.status = 'approved';
