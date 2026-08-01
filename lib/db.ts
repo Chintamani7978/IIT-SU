@@ -361,6 +361,7 @@ export async function getAdminStats(): Promise<AdminStats> {
         .map((r) => ({
           id: r.id, title: r.title, type: r.type,
           authorName: r.authorName, status: r.status, createdAt: r.createdAt,
+          subjectName: mock.SUBJECTS.find((s) => s.id === r.subjectId)?.name,
         })),
     };
   }
