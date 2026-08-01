@@ -1,4 +1,4 @@
-import { ShieldCheck, ExternalLink, Clock, CheckCircle2, FileText, Video, FlaskConical, BookOpen } from 'lucide-react';
+import { ShieldCheck, Clock, CheckCircle2, FileText, Video, FlaskConical, BookOpen } from 'lucide-react';
 import { getPendingResources } from '@/lib/db';
 import ModerationActions from '@/components/ModerationActions';
 import PdfPreviewModal from '@/components/PdfPreviewModal';
