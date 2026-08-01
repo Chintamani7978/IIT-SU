@@ -250,7 +250,7 @@ export const approveResource = (resourceId: string): void => {
   }
 };
 
-export const searchCatalog = (query: string) => {
+export const searchCatalog = (query: string): { subjects: Subject[]; resources: (Resource & { subjectName?: string; subjectCode?: string })[] } => {
   const q = query.toLowerCase();
   const subjects = SUBJECTS.filter(
     (s) => s.name.toLowerCase().includes(q) || s.code.toLowerCase().includes(q)
