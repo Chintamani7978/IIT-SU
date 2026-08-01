@@ -388,7 +388,7 @@ export async function getAdminStats(): Promise<AdminStats> {
   if (filePaths.length > 0) {
     const { data: signed } = await supabase.storage
       .from('resources')
-      .createSignedUrls(filePaths, 3600);
+      .createSignedUrls(filePaths, SIGNED_URL_TTL_SECONDS);
     for (const s of signed ?? []) {
       if (s.signedUrl && s.path) signedByPath.set(s.path, s.signedUrl);
     }
