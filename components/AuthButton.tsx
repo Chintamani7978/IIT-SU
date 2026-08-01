@@ -11,7 +11,6 @@ const configured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
 
 export default function AuthButton() {
   const [user, setUser] = useState<User | null>(null);
-  const [role, setRole] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -22,20 +21,6 @@ export default function AuthButton() {
     
     const fetchUserAndRole = async (u: User | null) => {
       setUser(u);
-      if (u) {
-        const { data: profile, error } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', u.id)
-          .maybeSingle();
-        if (error) {
-          console.error('Error fetching user profile role:', error);
-        }
-        console.log('User ID:', u.id, 'Fetched Profile:', profile);
-        setRole(profile?.role ?? 'student');
-      } else {
-        setRole(null);
-      }
     };
 
     supabase.auth.getUser().then(({ data }) => fetchUserAndRole(data.user));
