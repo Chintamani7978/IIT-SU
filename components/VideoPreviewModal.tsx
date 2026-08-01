@@ -12,7 +12,9 @@ function getYouTubeEmbedId(url: string): string | null {
     if (parsed.hostname.includes('youtu.be')) {
       return parsed.pathname.slice(1);
     }
-  } catch {}
+  } catch {
+    return null;
+  }
   return null;
 }
 
