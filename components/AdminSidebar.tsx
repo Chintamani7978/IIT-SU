@@ -20,8 +20,6 @@ export default function AdminSidebar() {
     { name: 'Help Centre', href: '#', icon: HelpCircle },
   ];
 
-  const filteredNavItems = navItems;
-
   return (
     <aside className="w-64 border-r border-[var(--border)] bg-[var(--background)] hidden md:flex flex-col h-full overflow-y-auto">
       <div className="p-6">
@@ -52,7 +50,7 @@ export default function AdminSidebar() {
               Navigation
             </h3>
             <ul className="space-y-1">
-              {filteredNavItems.map((item) => {
+              {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
                 return (
