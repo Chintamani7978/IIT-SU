@@ -3,7 +3,7 @@
 // team wires up a Supabase project (see supabase/README.md).
 import 'server-only';
 import { createClient as createAnonClient, SupabaseClient } from '@supabase/supabase-js';
-import { Department, Resource, Subject } from './types';
+import { Department, Branch, Resource, Subject } from './types';
 import { isSupabaseConfigured } from './supabase/server';
 import * as mock from './mockDb';
 
@@ -312,7 +312,7 @@ export async function searchCatalog(query: string): Promise<SearchResults> {
   return { subjects, resources };
 }
 
-export function findBranch(departments: Department[], branchId: string) {
+export function findBranch(departments: Department[], branchId: string): { department: Department; branch: Branch } | undefined {
   for (const dept of departments) {
     const branch = dept.branches.find((b) => b.id === branchId);
     if (branch) return { department: dept, branch };
