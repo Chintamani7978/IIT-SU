@@ -22,7 +22,6 @@ export interface Subject {
   type: 'theory' | 'lab' | 'project' | 'seminar' | 'viva';
 }
 
-export type ResourceType = 'note' | 'pyq' | 'video' | 'lab';
 export type ExamType = 'mid-sem' | 'end-sem';
 
 export interface ResourceBase {
