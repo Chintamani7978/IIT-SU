@@ -51,7 +51,6 @@ export default function LandingAccordion() {
     }
   }, [pathname]);
 
-
   if (!isExpanded) {
     return (
       <div id="departments" className="flex justify-center mt-0 mb-8">
