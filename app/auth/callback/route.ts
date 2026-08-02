@@ -1,4 +1,4 @@
-// GET handler for exchange code for session redirect callback
+// GET handler for the OAuth code exchange and session redirect callback
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
