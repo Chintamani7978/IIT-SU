@@ -19,16 +19,12 @@ export default function AuthButton() {
     if (!configured) return;
     const supabase = createClient();
     
-    const fetchUserAndRole = async (u: User | null) => {
-      setUser(u);
-    };
-
-    supabase.auth.getUser().then(({ data }) => fetchUserAndRole(data.user));
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      fetchUserAndRole(session?.user ?? null);
+      setUser(session?.user ?? null);
     });
 
     return () => subscription.unsubscribe();
