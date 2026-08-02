@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { isSupabaseConfigured } from '@/lib/supabase/server';
 
-
 export default async function AdminLayout({
   children,
 }: Readonly<{
