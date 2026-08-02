@@ -161,10 +161,6 @@ export const SUBJECTS: Subject[] = [
   { id: 'eee102', name: 'Control Systems', code: 'EEE102', branchId: 'eee', year: 3, semester: 5, credits: 3, type: 'theory' },
 ];
 
-export const SUBJECTS_FOR_BRANCH = (branchId: string): Subject[] => {
-  return SUBJECTS.filter(s => s.branchId === branchId);
-};
-
 export const RESOURCES: Resource[] = [
   {
     id: 'res-1',
