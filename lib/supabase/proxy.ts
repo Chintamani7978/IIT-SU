@@ -34,8 +34,8 @@ export async function updateSession(request: NextRequest) {
     );
 
     await supabase.auth.getUser();
-  } catch (error) {
-    console.error("Failed to update Supabase session in proxy helper:", error);
+  } catch {
+    // Session refresh failed — silently continue with the original response.
   }
 
   return response;
