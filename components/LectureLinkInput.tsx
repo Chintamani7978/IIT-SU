@@ -54,7 +54,7 @@ export default function LectureLinkInput({ subjectId }: { subjectId: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2 p-3 bg-[var(--card)] border border-[var(--border)] rounded-xl mb-6">
+    <form onSubmit={handleSubmit} className="relative flex items-center gap-2 p-3 bg-[var(--card)] border border-[var(--border)] rounded-xl mb-6">
       <Link2 className="w-4 h-4 text-[var(--primary)] shrink-0" />
       <input
         type="url"
