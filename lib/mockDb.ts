@@ -242,14 +242,6 @@ export const upvoteResource = (resourceId: string): void => {
   }
 };
 
-export const approveResource = (resourceId: string): void => {
-  const resource = RESOURCES.find(r => r.id === resourceId);
-  if (resource) {
-    resource.status = 'approved';
-    resource.isVerified = true;
-  }
-};
-
 export const searchCatalog = (query: string): { subjects: Subject[]; resources: (Resource & { subjectName?: string; subjectCode?: string })[] } => {
   const q = query.toLowerCase();
   const subjects = SUBJECTS.filter(
