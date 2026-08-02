@@ -209,8 +209,8 @@ export async function getPendingResources(): Promise<PendingResource[]> {
   }));
 }
 
-// Moderator-only... no — this reads the signed-in user's own submissions,
-// all statuses, via the cookie-bound client (RLS: "uploaders see own submissions").
+// Reads the signed-in user's own submissions (all statuses)
+// via the cookie-bound client (RLS: "uploaders see own submissions").
 export async function getMyResources(): Promise<PendingResource[]> {
   if (!isSupabaseConfigured()) return [];
 
